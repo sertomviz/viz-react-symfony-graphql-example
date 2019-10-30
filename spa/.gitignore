@@ -1,11 +1,6 @@
 # packages
 /node_modules/
 
-# env
-/.env
-/var/
-/vendor/
-
 # logs
 /yarn-error.log
 /yarn-debug.log
