@@ -2,15 +2,15 @@
 
 Sample app with two separated parts: GraphQL API (created through the Symfony 4 PHP framework with Oveblog bundle) and SPA (the React app with Apollo qraphql).
 
-It contains a basic CRUD of companies to demonstrate the use of Apollo GraphQL hooks in React, like useQuery, useMutation, and use of Apollo cache as an alternative to Redux.
+It's a basic CRUD of companies to demonstrate the use of Apollo GraphQL hooks in React (useQuery, useMutation) and use of Apollo cache as an alternative to Redux.
 
-The main components of the Symfony part:
+The main components of Symfony part:
 
 - Overblog/GraphQL bundle
 - Doctrine
-- Doctrine Migrations
+- Validator
 
-The main components of the React part:
+The main components of React part:
 
 - Apollo
 - Webpack
@@ -28,12 +28,11 @@ composer install
 ```
 2. Configure parameters in the `config/packages/doctrine.yaml` and `.env` files according to your needs.
 
-4. Create the database and populate it with some sample data:
+4. Create the database and schema:
 ```bash
 php bin/console doctrine:database:create
 php bin/console doctrine:migrations:diff
 php bin/console doctrine:migrations:migrate
-php bin/console doctrine:fixtures:load
 ```
 
 
