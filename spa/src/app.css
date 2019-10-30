@@ -1,0 +1,33 @@
+/* table-fixed with scroll*/
+.table-fixed tbody {
+  height: 300px;
+  overflow-y: auto;
+  width: 100%;
+  display: block;
+}
+.table-fixed thead, .table-fixed tbody tr {
+  display:table;
+  width:100%;
+  table-layout:fixed;
+}
+.table-fixed tbody td, .table-fixed thead > tr> th {
+  float: left;
+  border-bottom-width: 0;
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+}
+::-webkit-scrollbar-thumb {
+  background: darkgrey;
+  border-radius: 3px;
+}
+/* end table-fixed with scroll */
+
+.rowSelected {
+  background-color: #E1E2E2;
+}
+
+.navbar {
+  background-color: #C8EAF9
+}

@@ -1,0 +1,76 @@
+Mutation:
+    type: object
+    config:
+        fields:
+            CreateCompany:
+                type: Company
+                resolve: "@=mutation('create_company', [args, validator])"
+                args:
+                    name:
+                        type: String!
+                        validation:
+                              - NotBlank: ~
+                              - Length: { min: 3, max: 100 }
+                    website:
+                        type: String
+                    country:
+                        type: String
+                        validation:
+                              - NotBlank: ~
+            UpdateCompany:
+                type: Company
+                resolve: "@=mutation('update_company', [args, validator])"
+                args:
+                    id:
+                        type: Int!
+                    name:
+                        type: String!
+                        validation:
+                              - NotBlank: ~
+                              - Length: { min: 3, max: 100 }
+                    website:
+                        type: String
+                    country:
+                        type: String
+                        validation:
+                              - NotBlank: ~
+            RemoveCompanies:
+                type: RemoveCompanyPayload
+                resolve: "@=mutation('delete_companies', [args])"
+                args:
+                    Ids:
+                        type: "[Int]"
+
+RemoveCompanyPayload:
+    type: object
+    config:
+        fields:
+            result:
+                type: "String"
+                
+CreateCompanyPayload:
+    type: object
+    config:
+        fields:
+            id:
+                type: "ID!"
+            name:
+                type: "String"
+            website:
+                type: "String"
+            country:
+                type: "String"
+
+
+UpdateCompanyPayload:
+    type: object
+    config:
+        fields:
+            id:
+                type: "ID!"
+            name:
+                type: "String!"
+            website:
+                type: "String"
+            country:
+                type: "String"

@@ -1,0 +1,15 @@
+Query:
+    type: object
+    config:
+        description: "A Company."
+        fields:
+            company:
+                type: "Company"
+                args:
+                    id:
+                        description: id of the company"
+                        type: ID!
+                resolve: "@=resolver('get_company', [args['id']])"
+            companies:
+                type: "[Company]"
+                resolve: "@=resolver('get_companies', [])"
