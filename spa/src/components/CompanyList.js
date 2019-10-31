@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery, useApolloClient } from '@apollo/react-hooks';
 import CompanyEditForm from './CompanyEditForm';
 import CompanyNewForm from './CompanyNewForm';
 import Loading from './Loading';
@@ -33,6 +33,8 @@ export default function CompanyList() {
 
   const [item, setItem] = useState({active: null, new: false});
   const [selections, setSelections] = useState([]);
+  const [orderBy, setOrderBy] = useState({name: false, country: false, website: false});
+  const client = useApolloClient();
 
   /* -- handles click on the Company Name link -- */
   const handleClick = (id) => {
@@ -60,6 +62,35 @@ export default function CompanyList() {
     selections.includes(id) ? setSelections([...selections].filter(v => v !== id)) : setSelections([...selections, id])
   }
 
+  /* -- handles click on the table header column to sort data in table -- */
+  const handleSortTable = (event) => {
+    const field = event.currentTarget.getAttribute('name');
+    const {companies} = client.readQuery({ query: GET_COMPANIES });
+    const order = !orderBy[field] ? true : false;
+    companies.sort(sort_by(field, order, (a) =>  a.toUpperCase()));
+    //console.log(companies);
+    //client.writeData({companies: [...companies]});
+    setOrderBy({...orderBy, [field]: order});
+  }
+
+  /* -- sorts array based on field and reverse order -- */
+  const sort_by = (field, reverse, primer) => {
+
+    const key = primer ?
+      function(x) {
+        return primer(x[field])
+      } :
+      function(x) {
+        return x[field]
+      };
+
+    reverse = !reverse ? 1 : -1;
+
+    return function(a, b) {
+      return a = key(a), b = key(b), reverse * ((a > b) - (b > a));
+    }
+  }
+
 
   const { loading, error, data } = useQuery(GET_COMPANIES);
 
@@ -82,9 +113,9 @@ export default function CompanyList() {
         <thead className="thead-dark">
           <tr>
             <th width="5%"><input type="checkbox" onChange={handleSelectAll} /></th>
-            <th width="35%">Company Name</th>
-            <th width="20%">Country</th>
-            <th width="40%">Website</th>
+            <th width="35%" name="name" onClick={handleSortTable}>Company Name</th>
+            <th width="20%" name="country" onClick={handleSortTable}>Country</th>
+            <th width="40%" name="website"onClick={handleSortTable}>Website</th>
           </tr>
         </thead>
         <tbody>

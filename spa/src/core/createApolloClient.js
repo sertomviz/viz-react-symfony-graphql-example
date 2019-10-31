@@ -8,7 +8,7 @@ export default function createApolloClient() {
   const cache = new InMemoryCache()
 
   const httpLink = new HttpLink({
-    uri: 'http://dev.cma.viz/',
+    uri: GRAPHQL_URI_BASE,
   });
 
 
