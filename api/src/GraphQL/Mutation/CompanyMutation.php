@@ -6,6 +6,7 @@ use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Definition\Resolver\AliasedInterface;
 use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
 use Overblog\GraphQLBundle\Validator\InputValidator;
+use Overblog\GraphQLBundle\Error\UserError;
 use App\Repository\CompanyRepository;
 use App\Entity\Company;
 
@@ -44,6 +45,9 @@ class CompanyMutation implements MutationInterface, AliasedInterface
   public function updateCompany(Argument $args, InputValidator $validator): array
   {
       $company = $this->companyRepository->find($args['id']);
+      if ($company === null) {
+        throw new UserError(sprintf('Could not find Company#%d', $args['id']));
+      }
 
       $validator->validate();
 
