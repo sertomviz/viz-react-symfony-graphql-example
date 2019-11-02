@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 
 const EditForm = ({ company, loading, submitAction }) => {
 
-  const btnContent = loading ? <span className="spinner-border spinner-border-sm ml-3 mr-3" role="status" aria-hidden="true"></span> : "Submit";
+  const btnContent = loading ? <span className="spinner-border spinner-border-sm ml-3 mr-3" role="status" aria-hidden="true"></span> : "Save";
 
   return (
     <Formik

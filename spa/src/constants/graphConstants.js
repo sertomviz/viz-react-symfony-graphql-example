@@ -52,10 +52,21 @@ mutation RemoveCompanies($Ids: [Int!]) {
 }
 `;
 
+export const GET_ALERTS = gql`
+  {
+    alerts @client {
+      tag
+      message
+    }
+  }
+`;
+
+
 
 export default {
   GET_COMPANY,
   GET_COMPANIES,
   CREATE_COMPANY,
   UPDATE_COMPANY,
+  GET_ALERTS,
 };

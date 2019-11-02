@@ -1,6 +1,6 @@
 import React from 'react';
 import { useMutation } from '@apollo/react-hooks';
-import {GET_COMPANIES , REMOVE_COMPANIES} from '../constants/graphConstants';
+import {GET_COMPANIES , REMOVE_COMPANIES, GET_ALERTS} from '../constants/graphConstants';
 
 
 const RemoveCompanies = ({selections, refreshList}) => {
@@ -24,8 +24,12 @@ const RemoveCompanies = ({selections, refreshList}) => {
             }
           });
 
+          /*-- add notification -- */
+          const {alerts} = cache.readQuery({ query: GET_ALERTS });
+          const alert = {tag: 'success', message: 'The companies have been removed successfully.', __typename: 'Alert'}
+
           /*-- update cache --*/
-          const data = { companies: [...companies] };
+          const data = { companies: [...companies], alerts: [alert, ...alerts], };
           cache.writeData({ data });
 
           refreshList();
@@ -44,7 +48,7 @@ const RemoveCompanies = ({selections, refreshList}) => {
 
   return (
     <div className="d-inline">
-        <button className="btn btn-danger" onClick={handleDeleteCompanies} disabled={disabledDelBtn}>
+        <button className="btn btn-danger" onClick={handleDeleteCompanies} disabled={disabledDelBtn} data-dismiss="alert">
           {btnContent}
         </button>
     </div>

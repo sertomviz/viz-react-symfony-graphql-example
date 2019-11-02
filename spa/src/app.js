@@ -14,9 +14,9 @@ import HomePage from './components/HomePage';
 
 import { ROUTE_COMPANIES, ROUTE_HOME } from './constants/routeConstants';
 
-class App extends Component {
 
-  render() {
+export default function App() {
+
     return (
     <Router>
       <div id="wrapper" className="cma-page">
@@ -35,8 +35,5 @@ class App extends Component {
       </div>
     </Router>
     );
-  }
 
 }
-
-export default App;

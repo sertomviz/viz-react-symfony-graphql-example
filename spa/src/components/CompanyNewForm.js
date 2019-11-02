@@ -1,6 +1,6 @@
 import React from 'react';
 import { useMutation } from '@apollo/react-hooks';
-import {GET_COMPANIES, CREATE_COMPANY} from '../constants/graphConstants';
+import {GET_COMPANIES, CREATE_COMPANY, GET_ALERTS} from '../constants/graphConstants';
 import EditForm from './EditForm.js'
 
 
@@ -12,8 +12,13 @@ const NewForm = (props) => {
       update(cache, {data: {CreateCompany}}) {
 
         const {companies} = cache.readQuery({ query: GET_COMPANIES });
+
+        const {alerts} = cache.readQuery({ query: GET_ALERTS });
+        const alert = {tag: 'success', message: 'The company has been created successfully.', __typename: 'Alert'}
+
         const data = {
           companies: [CreateCompany, ...companies],
+          alerts: [alert, ...alerts],
         };
         cache.writeData({ data });
         props.refreshList();

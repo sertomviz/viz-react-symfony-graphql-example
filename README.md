@@ -9,6 +9,7 @@ The main components of Symfony part:
 - Overblog/GraphQL bundle
 - Doctrine
 - Validator
+- Fixtures
 
 The main components of React part:
 
@@ -16,6 +17,7 @@ The main components of React part:
 - Webpack
 - Formik & Yup
 - Bootstrap 4
+- Alerts
 
 ## Installation
 

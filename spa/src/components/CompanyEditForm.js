@@ -23,6 +23,7 @@ const CompanyEditForm = props => {
     <div className="mb-3">
         <CompanyUpdateForm
           company = {company}
+          refreshList = {props.refreshList}
         />
     </div>
   );
