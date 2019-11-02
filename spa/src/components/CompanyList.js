@@ -68,8 +68,6 @@ export default function CompanyList() {
     const {companies} = client.readQuery({ query: GET_COMPANIES });
     const order = !orderBy[field] ? true : false;
     companies.sort(sort_by(field, order, (a) =>  a.toUpperCase()));
-    //console.log(companies);
-    //client.writeData({companies: [...companies]});
     setOrderBy({...orderBy, [field]: order});
   }
 

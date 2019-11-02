@@ -35,6 +35,10 @@ php bin/console doctrine:migrations:diff
 php bin/console doctrine:migrations:migrate
 ```
 
+5. Optionally load sample data
+```bash
+php bin/console doctrine:fixtures:load
+```
 
 ### React
 
