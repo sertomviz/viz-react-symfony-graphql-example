@@ -4,7 +4,9 @@ import CompanyEditForm from './CompanyEditForm';
 import CompanyNewForm from './CompanyNewForm';
 import Loading from './Loading';
 import RemoveCompanies from './RemoveCompanies';
-import {GET_COMPANIES, GET_ALERTS} from '../constants/graphConstants';
+import Alerts from './Alerts';
+import {GET_COMPANIES} from '../constants/graphConstants';
+
 
 const CompanyRow = props => {
   const { id, name, website, country } = props.company;
@@ -35,35 +37,6 @@ export default function CompanyList() {
   const [selections, setSelections] = useState([]);
   const [orderBy, setOrderBy] = useState({name: false, country: false, website: false});
   const client = useApolloClient();
-
-  /* -- handles showing and closing of notifications -- */
-  const getAlerts = () => {
-
-    const handleAlertClosing = (event) => {
-      const target = Number(event.currentTarget.dataset.index);
-      const data = {
-        alerts: [...alerts.filter((item, index) => index !== target)],
-      };
-      client.writeData({ data });
-      setItem({active: null, new: false});
-    }
-
-    const {alerts} = client.readQuery({ query: GET_ALERTS });
-    const alertsDivs = [];
-    alerts.forEach((item, index) => {
-      const alert = (
-        <div id={`Notification_${index}`} key={Symbol(index).toString()} className={`alert alert-${item.tag} fade show`}>
-          <button type="button" className="close" onClick={handleAlertClosing} data-index={index}>
-            <span aria-hidden="true">&times;</span>
-          </button>
-          {item.message}
-        </div>
-      );
-      alertsDivs.push(alert);
-    });
-
-    return alertsDivs.length > 0 ? alertsDivs : null;
-  }
 
   /* -- handles click on the Company Name link -- */
   const handleClick = (id) => {
@@ -118,7 +91,7 @@ export default function CompanyList() {
     }
   }
 
-
+  /*-- get data from server or from cache --*/
   const { loading, error, data } = useQuery(GET_COMPANIES);
 
   if (loading) return <Loading/>;
@@ -129,7 +102,7 @@ export default function CompanyList() {
   return (
     <div className="row">
       <div className="fixed-top w-50 mt-4 mr-4 ml-auto">
-        {getAlerts()}
+        <Alerts />
       </div>
       <div className="col-sm-12 col-md-8 col-lg-8">
         <div className="mb-2">

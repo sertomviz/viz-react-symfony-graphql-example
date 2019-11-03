@@ -17,7 +17,6 @@ The main components of React part:
 - Webpack
 - Formik & Yup
 - Bootstrap 4
-- Alerts
 
 ## Installation
 
